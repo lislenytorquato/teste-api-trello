@@ -17,12 +17,6 @@ jobs:
 
     - name: checkout
       uses: actions/checkout@v4
-    
-    - name: permission for gradle
-      run: chmod +x gradlew
-        
-    - name: run test gradle
-      run: ./gradlew clean test
 
     - name: actions-env
   # You may pin to the exact commit or the version.
@@ -32,9 +26,17 @@ jobs:
         file: .env
         prefix: TRELLO_
     # Environment variables
-    env: 
+      env: 
         API_KEY: ${{ secrets.TRELLO_API_KEY }}
         TOKEN: ${{ secrets.TRELLO_TOKEN }}
+    
+    - name: permission for gradle
+      run: chmod +x gradlew
+        
+    - name: run test gradle
+      run: ./gradlew clean test
+
+ 
           
           
      
