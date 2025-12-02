@@ -1,4 +1,4 @@
-import io.github.cdimascio.dotenv.Dotenv;
+import helper.Env;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -15,11 +15,9 @@ public class TrelloChecklistApiTest {
 
     @BeforeAll
     static void setup(){
-        Dotenv dotenv = Dotenv.configure()
-                .systemProperties()
-                .ignoreIfMissing().load();
-         trelloApiKey = dotenv.get("TRELLO_API_KEY");
-         trelloToken = dotenv.get("TRELLO_TOKEN");
+        trelloApiKey = Env.dotEnvOrSystem("TRELLO_API_KEY");
+        trelloToken = Env.dotEnvOrSystem("TRELLO_TOKEN");
+
     }
 
 
