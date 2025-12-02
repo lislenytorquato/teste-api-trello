@@ -18,18 +18,10 @@ jobs:
     - name: checkout
       uses: actions/checkout@v4
     
-    - name: handle-env
-  # You may pin to the exact commit or the version.
-  # uses: tmshkr/handle-env@c6522a47853ef2835342022be264dd3edcc26c86
-      uses: tmshkr/handle-env@v1.2
-      with:
-    # key=value pairs of environment variables, in standard .env format.
+    - name: env
         env: 
-           TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
-           TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}
-        delete: true
-    # The name of the .env file to create.
-        filename: .env     
+            TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
+            TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}     
     
     - name: permission for gradle
       run: chmod +x gradlew
