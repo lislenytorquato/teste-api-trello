@@ -17,8 +17,8 @@ public class TrelloChecklistApiTest {
     @BeforeAll
     static void setup(){
         Dotenv dotenv = Dotenv.load();
-         trelloApiKey = dotenv.get("TRELLO_API_KEY");
-         trelloToken = dotenv.get("TRELLO_TOKEN");
+         trelloApiKey = dotenv.get("TRELLO_API_KEY", System.getenv("TRELLO_API_KEY"));
+         trelloToken = dotenv.get("TRELLO_TOKEN", System.getenv("TRELLO_TOKEN"));
     }
 
 
