@@ -16,5 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Run Test
-        run: ./gradlew test
+      - name: Permission for gradle
+        run: chmod +x gradlew
+        
+      - name: run Test gradle
+        run: ./gradlew clean test
