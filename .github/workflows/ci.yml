@@ -19,7 +19,7 @@ jobs:
       uses: actions/checkout@v4
     
     - name: env
-        env: 
+      env: 
             TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
             TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}     
     
