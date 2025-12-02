@@ -18,6 +18,9 @@ jobs:
     - name: checkout
       uses: actions/checkout@v4
 
+    - name: Use secret
+      run: echo "Your secret is ${{ secrets.TRELLO_API_KEY }}"
+    
     - name: actions-env
   # You may pin to the exact commit or the version.
   # uses: skiddph/actions-env@8556a4ffbbded4d1a77924d1b98fe1db789574c1
