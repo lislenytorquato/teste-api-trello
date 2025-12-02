@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: env
-      uses: actions/checkout@v4
       env:
         TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
         TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}
