@@ -14,18 +14,18 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: env
-        env: 
-         TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
-         TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}
-      
-      - name: permission for gradle
-        run: chmod +x gradlew
+    - name: env
+    - uses: actions/checkout@v4
+      env:
+        TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
+        TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}
+    
+    - name: permission for gradle
+      run: chmod +x gradlew
         
-      - name: run test gradle
-        run: ./gradlew clean test
-
+    - name: run test gradle
+      run: ./gradlew clean test
+    
+     
      
         
