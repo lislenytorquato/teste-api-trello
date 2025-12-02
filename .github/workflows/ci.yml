@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: build with gradle
-      uses: gradle/actions@v5.0.0
+    - name: checkout
+      uses: actions/checkout@v4
     
     - name: permission for gradle
       run: chmod +x gradlew
