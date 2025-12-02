@@ -17,7 +17,6 @@ public class TrelloChecklistApiTest {
     static void setup(){
         trelloApiKey = Env.dotEnvOrSystem("TRELLO_API_KEY");
         trelloToken = Env.dotEnvOrSystem("TRELLO_TOKEN");
-
     }
 
 
