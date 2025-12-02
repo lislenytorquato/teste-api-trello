@@ -2,7 +2,6 @@ import io.github.cdimascio.dotenv.Dotenv;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -16,9 +15,11 @@ public class TrelloChecklistApiTest {
 
     @BeforeAll
     static void setup(){
-        Dotenv dotenv = Dotenv.load();
-         trelloApiKey = dotenv.get("TRELLO_API_KEY", System.getenv("TRELLO_API_KEY"));
-         trelloToken = dotenv.get("TRELLO_TOKEN", System.getenv("TRELLO_TOKEN"));
+        Dotenv dotenv = Dotenv.configure()
+                .systemProperties()
+                .ignoreIfMissing().load();
+         trelloApiKey = dotenv.get("TRELLO_API_KEY");
+         trelloToken = dotenv.get("TRELLO_TOKEN");
     }
 
 
