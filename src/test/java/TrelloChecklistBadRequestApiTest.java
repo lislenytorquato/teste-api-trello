@@ -1,26 +1,16 @@
-import helper.Env;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class TrelloChecklist400ApiTest {
+import static helper.TestHelper.*;
 
-    private static String trelloToken;
-    private static String trelloApiKey;
-    private static String id;
-
-    @BeforeAll
-    static void setup(){
-        trelloApiKey = Env.dotEnvOrSystem("TRELLO_API_KEY");
-        trelloToken = Env.dotEnvOrSystem("TRELLO_TOKEN");
-    }
+public class TrelloChecklistBadRequestApiTest {
 
 
-    @DisplayName("CT01- Create Checklist with bad request")
+    @DisplayName("CT05- Create Checklist with bad request")
     @Test
     void createChecklistWithBadRequest(){
 
@@ -28,18 +18,19 @@ public class TrelloChecklist400ApiTest {
         Response response = request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
-                .queryParam("key", trelloApiKey)
-                .queryParam("token", trelloToken)
+                .queryParam("key", apiKey())
+                .queryParam("token", token())
+                .queryParam("name","automação em C#")
                 .when()
                 .post()
                 .then()
                 .statusCode(400)
                 .extract().response();
-        
+
 
     }
 
-    @DisplayName("CT02- Get a Checklist with bad request")
+    @DisplayName("CT06- Get a Checklist with bad request")
     @Test
     void getChecklistWithBadRequest(){
 
@@ -48,8 +39,8 @@ public class TrelloChecklist400ApiTest {
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
                 .basePath("692de8396d94")
-                .queryParam("key", trelloApiKey)
-                .queryParam("token",trelloToken)
+                .queryParam("key", apiKey())
+                .queryParam("token",token())
                 .when()
                 .get()
                 .then()
@@ -57,7 +48,7 @@ public class TrelloChecklist400ApiTest {
 
     }
 
-    @DisplayName("CT03- Update a Checklist with bad request")
+    @DisplayName("CT07- Update a Checklist with bad request")
     @Test
     void UpdateChecklistWithBadRequest(){
 
@@ -66,8 +57,9 @@ public class TrelloChecklist400ApiTest {
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
                 .basePath("692de8396d")
-                .queryParam("key", trelloApiKey)
-                .queryParam("token",trelloToken)
+                .queryParam("key", apiKey())
+                .queryParam("token",token())
+                .queryParam("name","automação em javascript")
                 .when()
                 .put()
                 .then()
@@ -75,22 +67,11 @@ public class TrelloChecklist400ApiTest {
 
     }
 
-    @DisplayName("CT04- Delete a Checklist with bad request")
+    @DisplayName("CT08- Delete a Checklist with bad request")
     @Test
     void DeleteChecklistWithBadRequest(){
 
-        RequestSpecification request = RestAssured.given();
-        request
-                .contentType(ContentType.JSON)
-                .baseUri("https://api.trello.com/1/checklists?")
-                .basePath("692de8396d")
-                .queryParam("key", trelloApiKey)
-                .queryParam("token",trelloToken)
-                .when()
-                .delete()
-                .then()
-                .statusCode(400);
-
+        delete("692de8396d",400);
     }
 
 
