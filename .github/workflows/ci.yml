@@ -16,8 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Permission for gradle
+      - name: permission for gradle
         run: chmod +x gradlew
         
-      - name: run Test gradle
+      - name: run test gradle
         run: ./gradlew clean test
+
+      - name: run tests environment variables
+        run: export TRELLO_API_KEY=${{ secrets.TRELLO_API_KEY}}
+             export TRELLO_TOKEN=${{ secrets.TRELLO_TOKEN}}
+        
