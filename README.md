@@ -29,3 +29,17 @@ java.lang.AssertionError: 1 expectation failed.
   Expected status code <401> but was <400>.
 * Observações: pode ser uma melhoria ou exista uma razão interna da trello para ser bad request
 
+-----------------------------------------------------------------------------------------------------------------------
+
+* Melhoria: Id - CT 13
+* Como reproduzir?
+  1. criar teste em rest assured
+  2. adicionar um idCard inexistente (retirado da documentação)
+  3. enviar post na url https://api.trello.com/1/checklists?
+* Resultado Esperado: código 404 - not found
+* Resultado Obtido: código 401
+* Evidências:
+  java.lang.AssertionError: 1 expectation failed.
+  Expected status code <404> but was <401>.
+* Observações: pode ser uma melhoria ou exista uma razão interna da trello para ser bad request
+
