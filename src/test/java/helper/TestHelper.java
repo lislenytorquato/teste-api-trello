@@ -5,6 +5,9 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import java.util.Arrays;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,6 +16,7 @@ public class TestHelper {
     public static final String ID_CARD = "692de5425e1d0b3952027429";
     public static final String ID_CHECKLIST = "692de8396d94e4cc2c66ae31";
     public static Logger logger = Logger.getLogger(TestHelper.class.getName());
+    private static final Handler consoleHandler = new ConsoleHandler();
 
         public static String apiKey(){
             return Env.dotEnvOrSystem("TRELLO_API_KEY");
@@ -55,6 +59,9 @@ public class TestHelper {
     }
 
     public static void log(Level level, String msg){
-        logger.log(level,msg);
+            
+       consoleHandler.setLevel(level);
+       logger.addHandler(consoleHandler);
+       logger.info(msg);
     }
 }
