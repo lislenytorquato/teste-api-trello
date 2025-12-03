@@ -59,9 +59,10 @@ public class TestHelper {
     }
 
     public static void log(Level level, String msg){
-            
+
        consoleHandler.setLevel(level);
        logger.addHandler(consoleHandler);
        logger.info(msg);
+
     }
 }
