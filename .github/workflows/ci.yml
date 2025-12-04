@@ -26,7 +26,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: run test gradle
-      run: ./gradlew testCoverage --info
+      run: ./gradlew test jacocoTestReport --info
 
     - name: Add jacoco
       id: jacoco

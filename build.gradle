@@ -34,4 +34,10 @@ test {
             enabled true
         }
     }
+    finalizedBy jacocoTestReport
+
+}
+
+jacocoTestReport {
+    dependsOn test
 }
