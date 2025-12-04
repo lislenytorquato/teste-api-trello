@@ -1,7 +1,5 @@
-import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +15,7 @@ public class TrelloChecklistNotFoundApiTest {
 
     @BeforeEach
     void setup(){
-       request =RestAssured.given().filter(new AllureRestAssured());
+       request =RestAssured.given();
     }
 
     @DisplayName("CT16- Create Checklist with idCard not found")
@@ -85,7 +83,7 @@ public class TrelloChecklistNotFoundApiTest {
     void DeleteChecklistWithBadRequest(){
         log(Level.INFO,"Iniciando teste: CT19- Delete a Checklist with id not found");
 
-        delete("6930324a3a4a718b43fc404c",404);
+        delete(request,"6930324a3a4a718b43fc404c",404);
 
         log(Level.INFO,"Encerrando teste: CT19- Delete a Checklist with id not found");
     }

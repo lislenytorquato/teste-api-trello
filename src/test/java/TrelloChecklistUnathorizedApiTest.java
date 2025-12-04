@@ -1,7 +1,5 @@
-import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +15,7 @@ public class TrelloChecklistUnathorizedApiTest {
 
     @BeforeEach
     void setup(){
-        request =RestAssured.given().filter(new AllureRestAssured());
+        request =RestAssured.given();
     }
 
     @DisplayName("CT09- Create Checklist with no authorization")

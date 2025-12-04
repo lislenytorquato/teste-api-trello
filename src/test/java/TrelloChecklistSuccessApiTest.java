@@ -1,4 +1,3 @@
-import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
@@ -18,7 +17,7 @@ public class TrelloChecklistSuccessApiTest {
 
     @BeforeEach
     void setup(){
-        request =RestAssured.given().filter(new AllureRestAssured());
+        request =RestAssured.given();
     }
 
     @DisplayName("CT01- Create Checklist with success")
@@ -27,7 +26,7 @@ public class TrelloChecklistSuccessApiTest {
 
         log(Level.INFO, "Iniciando teste: CT01- Create Checklist with success...");
 
-        ID_CREATED_TO_BE_DELETED = post();
+        ID_CREATED_TO_BE_DELETED = post(request);
 
         log(Level.INFO, "Encerrando teste: CT01- Create Checklist with success...");
     }
@@ -79,7 +78,7 @@ public class TrelloChecklistSuccessApiTest {
 
         log(Level.INFO,"Iniciando teste: CT04- Update a Checklist with success");
 
-        delete(ID_CREATED_TO_BE_DELETED,200);
+        delete(request,ID_CREATED_TO_BE_DELETED,200);
 
         log(Level.INFO,"Encerrando teste: CT04- Update a Checklist with success");
     }

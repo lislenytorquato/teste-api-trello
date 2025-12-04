@@ -1,8 +1,5 @@
-import io.qameta.allure.junit5.AllureJunit5;
-import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +15,7 @@ public class TrelloChecklistBadRequestApiTest {
 
     @BeforeEach
     void setup(){
-        request =RestAssured.given().filter(new AllureRestAssured());
+        request =RestAssured.given();
     }
 
     @DisplayName("CT05- Create Checklist with bad request")
@@ -89,7 +86,7 @@ public class TrelloChecklistBadRequestApiTest {
 
         log(Level.INFO,"Iniciando teste: CT08- Delete a Checklist with bad request");
 
-        delete("692de8396d",400);
+        delete(request,"692de8396d",400);
 
         log(Level.INFO,"Encerrando teste: CT08- Delete a Checklist with bad request");
     }
