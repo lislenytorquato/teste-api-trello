@@ -29,11 +29,8 @@ jobs:
       run: ./gradlew test jacocoTestReport --info
       continue-on-error: true
 
-    - name: Add jacoco
-      id: jacoco
-      uses: madrapps/jacoco-report@v1.7.2
+    - name: Generate JaCoCo Badge
+      uses: cicirello/jacoco-badge-generator@v2
       with:
-        paths: |
-          ${{ github.workspace }}/**/build/reports/tests/test/index.html
-          token: ${{ secrets.REPORTS_TOKEN }}
+        jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
         
