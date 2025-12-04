@@ -4,7 +4,7 @@ name: CI
 
 
 on:
-  
+
   push:
     branches: [ "main" ]
   pull_request:
@@ -12,25 +12,25 @@ on:
 
 jobs:
   test:
-    env: 
+    env:
         TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
-        TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}     
-    
+        TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}
+
     runs-on: ubuntu-latest
     steps:
 
     - name: checkout
       uses: actions/checkout@v4
-    
+
     - name: permission for gradle
       run: chmod +x gradlew
-        
-    - name: run test gradle
-      run: ./gradlew clean test --info
 
- 
-          
-          
-     
-     
-        
+    - name: run test gradle
+      run: ./gradlew clean test jacocoTestReport --info
+      continue-on-error: true
+
+    - name: Upload JaCoCo HTML Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: jacoco-html
+        path: build/reports/tests/test

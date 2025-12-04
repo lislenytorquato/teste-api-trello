@@ -1,11 +1,9 @@
 package helper;
 
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-import java.util.Arrays;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -26,8 +24,8 @@ public class TestHelper {
             return Env.dotEnvOrSystem("TRELLO_TOKEN");
         }
 
-        public static String post(){
-        RequestSpecification request = RestAssured.given();
+        public static String post(RequestSpecification request){
+
         Response response = request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
@@ -44,8 +42,9 @@ public class TestHelper {
         return response.getBody().jsonPath().getString("id");
     }
 
-    public static void delete(String id,int statusCode){
-        RequestSpecification request = RestAssured.given();
+    public static void delete(RequestSpecification request, String id,int statusCode){
+
+
         request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
