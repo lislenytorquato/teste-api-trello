@@ -4,56 +4,28 @@ name: CI
 
 
 on:
-  
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
-
+  push:
+permissions:
+  contents: read
+  actions: read
+  checks: write
 jobs:
-  test:
-    env: 
-        TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
-        TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}     
-    
+  build-test:
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4     # checkout the repo
+      - run: npm ci                   # install packages
+      - run: npm test                 # run tests (configured to use jest-junit reporter)
 
-    - name: checkout
-      uses: actions/checkout@v4
-    
-    - name: permission for gradle
-      run: chmod +x gradlew
-        
-    - name: run test gradle
-      run: ./gradlew clean test --info
-
-    - name: load test report history
-      uses: actions/checkout@v4
-      if: always()
-      continue-on-error: true
-      with:
-        ref: gh-pages
-        path: gh-pages
-
-    - name: "Build test report"
-      uses: simple-elf/allure-report-action@v1.7
-      if: always()
-      with:
-        gh_pages: gh-pages
-        allure_history: allure-history
-        allure_results: build/allure-results
-
-    - name: "Publish test report"
-      uses: peaceiris/actions-gh-pages@v3
-      if: always()
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_token: gh-pages
-        publish_dir: gh-pages
-
-
-
+      - name: Test Report
+        uses: dorny/test-reporter@v2
+        if: ${{ !cancelled() }}       # run this step even if previous step failed
+        with:
+          name: JEST Tests            # Name of the check run which will be created
+          path: reports/jest-*.xml    # Path to test results
+          reporter: jest-junit        # Format of test results
 
  
           
