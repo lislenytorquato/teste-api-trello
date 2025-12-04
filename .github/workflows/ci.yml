@@ -26,11 +26,11 @@ jobs:
       run: chmod +x gradlew
 
     - name: run test gradle
-      run: ./gradlew test jacocoTestReport --info
+      run: ./gradlew clean test jacocoTestReport --info
       continue-on-error: true
 
-    - name: Generate JaCoCo Badge
-      uses: cicirello/jacoco-badge-generator@v2
+    - name: Upload JaCoCo HTML Report
+      uses: actions/upload-artifact@v4
       with:
-        jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
-        
+        name: jacoco-html
+        path: build/reports/tests/test/index.html
