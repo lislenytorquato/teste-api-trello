@@ -35,5 +35,5 @@ jobs:
       with:
         paths: |
           ${{ github.workspace }}/**/build/reports/tests/test/index.html
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.REPORTS_TOKEN }}
         
