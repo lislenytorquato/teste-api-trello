@@ -1,5 +1,6 @@
 package helper;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -27,7 +28,8 @@ public class TestHelper {
         }
 
         public static String post(){
-        RequestSpecification request = RestAssured.given();
+            RequestSpecification request = RestAssured.given().filter(new AllureRestAssured());
+
         Response response = request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
@@ -45,7 +47,8 @@ public class TestHelper {
     }
 
     public static void delete(String id,int statusCode){
-        RequestSpecification request = RestAssured.given();
+
+        RequestSpecification request = RestAssured.given().filter(new AllureRestAssured());
         request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")

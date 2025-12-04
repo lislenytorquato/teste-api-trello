@@ -1,7 +1,10 @@
+import io.qameta.allure.junit5.AllureJunit5;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +14,12 @@ import static helper.TestHelper.*;
 
 public class TrelloChecklistBadRequestApiTest {
 
+    private RequestSpecification request;
+
+    @BeforeEach
+    void setup(){
+        request =RestAssured.given().filter(new AllureRestAssured());
+    }
 
     @DisplayName("CT05- Create Checklist with bad request")
     @Test
@@ -18,8 +27,7 @@ public class TrelloChecklistBadRequestApiTest {
 
         log(Level.INFO,"Iniciando teste: CT05- Create Checklist with bad request");
 
-        RequestSpecification request = RestAssured.given();
-        Response response = request
+        request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
                 .queryParam("key", apiKey())
@@ -40,7 +48,6 @@ public class TrelloChecklistBadRequestApiTest {
 
         log(Level.INFO,"Iniciando teste: CT06- Get a Checklist with bad request");
 
-        RequestSpecification request = RestAssured.given();
         request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
@@ -61,7 +68,6 @@ public class TrelloChecklistBadRequestApiTest {
 
         log(Level.INFO,"Iniciando teste: CT07- Update a Checklist with bad request");
 
-        RequestSpecification request = RestAssured.given();
         request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")

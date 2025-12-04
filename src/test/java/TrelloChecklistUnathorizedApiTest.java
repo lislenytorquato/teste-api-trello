@@ -1,7 +1,9 @@
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,14 +13,19 @@ import static helper.TestHelper.*;
 
 public class TrelloChecklistUnathorizedApiTest {
 
+    private RequestSpecification request;
+
+    @BeforeEach
+    void setup(){
+        request =RestAssured.given().filter(new AllureRestAssured());
+    }
 
     @DisplayName("CT09- Create Checklist with no authorization")
     @Test
     void createChecklistWithNoAthorization(){
         log(Level.INFO,"Iniciando teste: CT09- Create Checklist with no authorization");
 
-        RequestSpecification request = RestAssured.given();
-        Response response = request
+        request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
                 .queryParam("key", apiKey())
@@ -38,7 +45,6 @@ public class TrelloChecklistUnathorizedApiTest {
 
         log(Level.INFO,"Iniciando teste: CT10- Get a Checklist with no authorization");
 
-        RequestSpecification request = RestAssured.given();
         request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
@@ -57,7 +63,6 @@ public class TrelloChecklistUnathorizedApiTest {
 
         log(Level.INFO,"Iniciando teste: CT11- Update a Checklist with no authorization");
 
-        RequestSpecification request = RestAssured.given();
         request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
@@ -77,7 +82,6 @@ public class TrelloChecklistUnathorizedApiTest {
 
         log(Level.INFO,"Iniciando teste: CT12- Delete a Checklist with no authorization");
 
-        RequestSpecification request = RestAssured.given();
         request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")

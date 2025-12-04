@@ -1,6 +1,8 @@
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +13,13 @@ import static helper.TestHelper.*;
 public class TrelloChecklistSuccessApiTest {
 
     private static String ID_CREATED_TO_BE_DELETED;
+
+    private RequestSpecification request;
+
+    @BeforeEach
+    void setup(){
+        request =RestAssured.given().filter(new AllureRestAssured());
+    }
 
     @DisplayName("CT01- Create Checklist with success")
     @Test
@@ -29,7 +38,6 @@ public class TrelloChecklistSuccessApiTest {
 
         log(Level.INFO,"Iniciando teste: CT02- Get a Checklist with success");
 
-        RequestSpecification request = RestAssured.given();
         request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
@@ -50,7 +58,6 @@ public class TrelloChecklistSuccessApiTest {
 
         log(Level.INFO,"Iniciando teste: CT03- Update a Checklist with success");
 
-        RequestSpecification request = RestAssured.given();
         request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")

@@ -18,6 +18,9 @@
 #enviroment variables
 .env
 
+#allure
+/allure-results
+
 # Generated files
 .idea/**/contentModel.xml
 

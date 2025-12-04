@@ -1,7 +1,9 @@
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,13 +13,19 @@ import static helper.TestHelper.*;
 
 public class TrelloChecklistNotFoundApiTest {
 
+    private RequestSpecification request;
+
+    @BeforeEach
+    void setup(){
+       request =RestAssured.given().filter(new AllureRestAssured());
+    }
+
     @DisplayName("CT16- Create Checklist with idCard not found")
     @Test
     void createChecklistWithIdCardNotFound(){
         log(Level.INFO,"Iniciando teste: CT16- Create Checklist with idCard not found");
 
-        RequestSpecification request = RestAssured.given();
-        Response response = request
+         request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
                 .queryParam("idCard","5abbe4b7ddc1b351ef961414")
@@ -38,7 +46,6 @@ public class TrelloChecklistNotFoundApiTest {
     void getChecklistWithIdNotFound(){
         log(Level.INFO,"Iniciando teste: CT17- Get a Checklist with id not found");
 
-        RequestSpecification request = RestAssured.given();
         request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
@@ -58,7 +65,6 @@ public class TrelloChecklistNotFoundApiTest {
     void UpdateChecklistWithIdNotFound(){
         log(Level.INFO,"Iniciando teste: CT18- Update a Checklist with id not found");
 
-        RequestSpecification request = RestAssured.given();
         request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
