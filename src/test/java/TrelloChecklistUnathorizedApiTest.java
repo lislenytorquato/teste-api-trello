@@ -1,5 +1,7 @@
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.module.jsv.JsonSchemaValidator;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +25,7 @@ public class TrelloChecklistUnathorizedApiTest {
     void createChecklistWithNoAthorization(){
         log(Level.INFO,"Iniciando teste: CT09- Create Checklist with no authorization");
 
-        request
+       Response response = request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
                 .queryParam("key", apiKey())
@@ -34,6 +36,8 @@ public class TrelloChecklistUnathorizedApiTest {
                 .statusCode(401)
                 .extract().response();
 
+        validateSchema(response.getContentType(), Level.INFO,"Teste de schema: CT09- Create Checklist with no authorization", request, "schema/checklist-schema-id-card-required.json");
+
         log(Level.INFO,"Encerrando teste: CT09- Create Checklist with no authorization");
     }
 
@@ -43,14 +47,17 @@ public class TrelloChecklistUnathorizedApiTest {
 
         log(Level.INFO,"Iniciando teste: CT10- Get a Checklist with no authorization");
 
-        request
+      Response response =  request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
                 .basePath(ID_CHECKLIST)
                 .when()
                 .get()
                 .then()
-                .statusCode(401);
+                .statusCode(401)
+              .extract().response();
+
+        validateSchema(response.getContentType(), Level.INFO,"Teste de schema: CT10- Get a Checklist with no authorization", request, "schema/checklist-schema-id-required.json");
 
         log(Level.INFO,"Encerrando teste: CT10- Get a Checklist with no authorization");
     }
@@ -61,7 +68,7 @@ public class TrelloChecklistUnathorizedApiTest {
 
         log(Level.INFO,"Iniciando teste: CT11- Update a Checklist with no authorization");
 
-        request
+        Response response = request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
                 .basePath(ID_CHECKLIST)
@@ -70,7 +77,12 @@ public class TrelloChecklistUnathorizedApiTest {
                 .when()
                 .put()
                 .then()
-                .statusCode(401);
+                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schema/checklist-schema-id-required.json"))
+                .statusCode(401).extract().response();
+
+       // validateSchema(response.getContentType(), Level.INFO,"Teste de schema: CT11- Update a Checklist with no authorization", request);
+
+
         log(Level.INFO,"Encerrando teste: CT11- Update a Checklist with no authorization");
     }
 
@@ -80,7 +92,7 @@ public class TrelloChecklistUnathorizedApiTest {
 
         log(Level.INFO,"Iniciando teste: CT12- Delete a Checklist with no authorization");
 
-        request
+        Response response = request
                 .contentType(ContentType.JSON)
                 .baseUri("https://api.trello.com/1/checklists?")
                 .basePath(ID_CHECKLIST)
@@ -88,7 +100,8 @@ public class TrelloChecklistUnathorizedApiTest {
                 .when()
                 .delete()
                 .then()
-                .statusCode(401);
+                .statusCode(401).extract().response();
+        validateSchema(response.getContentType(), Level.INFO,"Teste de schema: CT12- Delete a Checklist with no authorization", request, "schema/checklist-schema-delete.json");
 
         log(Level.INFO,"Encerrando teste: CT12- Delete a Checklist with no authorization");
     }
