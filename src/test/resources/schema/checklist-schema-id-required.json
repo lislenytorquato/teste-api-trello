@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "checkItems": {"type": "array"},
+    "id": { "type": "string" },
+    "idBoard": { "type": "string" },
+    "idCard": { "type": "string" },
+    "limits": { "type": "object" },
+    "name": {"type": "string"},
+    "pos": {"type": "integer" }
+  },
+  "required": ["id"]
+}
+

@@ -1,13 +1,18 @@
 package helper;
 
 import io.restassured.http.ContentType;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.junit.jupiter.api.Assertions;
 
+import java.util.function.BooleanSupplier;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class TestHelper {
 
@@ -36,25 +41,11 @@ public class TestHelper {
                 .when()
                 .post()
                 .then()
+                .body(matchesJsonSchemaInClasspath("schema/checklist-schema-id-card-required.json"))
                 .statusCode(200)
                 .extract().response();
 
         return response.getBody().jsonPath().getString("id");
-    }
-
-    public static void delete(RequestSpecification request, String id,int statusCode){
-
-
-        request
-                .contentType(ContentType.JSON)
-                .baseUri("https://api.trello.com/1/checklists?")
-                .basePath(id)
-                .queryParam("key", apiKey())
-                .queryParam("token", token())
-                .when()
-                .delete()
-                .then()
-                .statusCode(statusCode);
     }
 
     public static void log(Level level, String msg){
@@ -63,5 +54,13 @@ public class TestHelper {
        logger.addHandler(consoleHandler);
        logger.info(msg);
 
+    }
+
+    public static void validateSchema(String contentType, Level level, String msg,RequestSpecification request, String schemaPath){
+
+        if (contentType.contains("application/json")){
+            log(level,msg);
+            request.body(matchesJsonSchemaInClasspath(schemaPath));
+        }
     }
 }

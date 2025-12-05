@@ -1,5 +1,6 @@
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.logging.Level;
 
 import static helper.TestHelper.*;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class TrelloChecklistSuccessApiTest {
 
@@ -46,6 +48,7 @@ public class TrelloChecklistSuccessApiTest {
                 .when()
                 .get()
                 .then()
+                .body(matchesJsonSchemaInClasspath("schema/checklist-schema-id-required.json"))
                 .statusCode(200);
 
         log(Level.INFO,"Encerrando teste: CT02- Get a Checklist with success");
@@ -67,6 +70,7 @@ public class TrelloChecklistSuccessApiTest {
                 .when()
                 .put()
                 .then()
+                .body(matchesJsonSchemaInClasspath("schema/checklist-schema-id-required.json"))
                 .statusCode(200);
 
         log(Level.INFO,"Encerrando teste: CT03- Update a Checklist with success");
@@ -78,7 +82,19 @@ public class TrelloChecklistSuccessApiTest {
 
         log(Level.INFO,"Iniciando teste: CT04- Update a Checklist with success");
 
-        delete(request,ID_CREATED_TO_BE_DELETED,200);
+        Response response = request
+                .contentType(ContentType.JSON)
+                .baseUri("https://api.trello.com/1/checklists?")
+                .basePath(ID_CREATED_TO_BE_DELETED)
+                .queryParam("key", apiKey())
+                .queryParam("token", token())
+                .when()
+                .delete()
+                .then()
+                .body(matchesJsonSchemaInClasspath("schema/checklist-schema-delete.json"))
+                .statusCode(200)
+                .extract().response();
+
 
         log(Level.INFO,"Encerrando teste: CT04- Update a Checklist with success");
     }
