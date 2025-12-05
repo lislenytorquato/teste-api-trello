@@ -21,10 +21,10 @@ public class TrelloChecklistNotFoundApiTest {
        request =RestAssured.given();
     }
 
-    @DisplayName("CT16- Create Checklist with idCard not found")
+    @DisplayName("CT21- Create Checklist with idCard not found")
     @Test
     void createChecklistWithIdCardNotFound(){
-        log(Level.INFO,"Iniciando teste: CT16- Create Checklist with idCard not found");
+        log(Level.INFO,"Iniciando teste: CT21- Create Checklist with idCard not found");
 
        Response response = request
                 .contentType(ContentType.JSON)
@@ -39,12 +39,12 @@ public class TrelloChecklistNotFoundApiTest {
                 .statusCode(404)
                 .extract().response();
 
-        validateSchema(response.getContentType(), Level.INFO,"Teste de schema: CT16- Create Checklist with idCard not found", request, "schema/checklist-schema-id-card-required.json");
+        validateSchema(response.getContentType(), Level.INFO,"Teste de schema: CT21- Create Checklist with idCard not found", request, "schema/checklist-schema-id-card-required.json");
 
-        log(Level.INFO,"Encerrando teste: CT16- Create Checklist with idCard not found");
+        log(Level.INFO,"Encerrando teste: CT21- Create Checklist with idCard not found");
     }
 
-    @DisplayName("CT17- Get a Checklist with id not found")
+    @DisplayName("CT22- Get a Checklist with id not found")
     @Test
     void getChecklistWithIdNotFound(){
         log(Level.INFO,"Iniciando teste: CT17- Get a Checklist with id not found");
@@ -66,7 +66,7 @@ public class TrelloChecklistNotFoundApiTest {
         log(Level.INFO,"Encerrando teste: CT17- Get a Checklist with id not found");
     }
 
-    @DisplayName("CT18- Update a Checklist with id not found")
+    @DisplayName("CT23- Update a Checklist with id not found")
     @Test
     void UpdateChecklistWithIdNotFound(){
         log(Level.INFO,"Iniciando teste: CT18- Update a Checklist with id not found");
@@ -88,7 +88,7 @@ public class TrelloChecklistNotFoundApiTest {
        log(Level.INFO,"Encerrando teste: CT18- Update a Checklist with id not found");
     }
 
-    @DisplayName("CT19- Delete a Checklist with id not found")
+    @DisplayName("CT24- Delete a Checklist with id not found")
     @Test
     void DeleteChecklistWithIdNotFound(){
         log(Level.INFO,"Iniciando teste: CT19- Delete a Checklist with id not found");
