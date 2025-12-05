@@ -28,6 +28,11 @@ Na pipeline, o relatório pode ser baixado.
 
 ## O escopo: Crud do Checklists
 
+1. Create a Checklist 
+2. Get a Checklist 
+3. Update a Checklist 
+4. Delete a Checklist
+
 https://developer.atlassian.com/cloud/trello/rest/api-group-checklists/
 
 ### Estratégia de Teste:
