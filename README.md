@@ -23,6 +23,7 @@ Na pipeline, o relatório pode ser baixado.
 3. Clique no job test
 4. Clique no step Upload Jacoco Html Report
 5. Clique no link gerado
+6. Vai baixar um arquivo zipado
 
 
 ## O escopo: Crud do Checklists
@@ -73,7 +74,7 @@ java.lang.AssertionError: 1 expectation failed.
   Expected: The content to match the given JSON schema.
   error: object has missing required properties (["id"])
   level: "error"
-  schema: {"loadingURI":"file:/C:/Users/lisleny.silva/Documents/Trello/teste-api-trello/build/resources/test/schema/checklist-schema-id-required.json#","pointer":""}
+  schema: {"loadingURI":"file:.../teste-api-trello/build/resources/test/schema/checklist-schema-id-required.json#","pointer":""}
   instance: {"pointer":""}
   domain: "validation"
   keyword: "required"
@@ -96,7 +97,7 @@ java.lang.AssertionError: 1 expectation failed.
   Expected: The content to match the given JSON schema.
   error: object has missing required properties (["id"])
   level: "error"
-  schema: {"loadingURI":"file:/C:/Users/lisleny.silva/Documents/Trello/teste-api-trello/build/resources/test/schema/checklist-schema-id-required.json#","pointer":""}
+  schema: {"loadingURI":"file:/.../teste-api-trello/build/resources/test/schema/checklist-schema-id-required.json#","pointer":""}
   instance: {"pointer":""}
   domain: "validation"
   keyword: "required"
@@ -134,7 +135,7 @@ java.lang.AssertionError: 1 expectation failed.
   Expected: The content to match the given JSON schema.
   error: object has missing required properties (["id"])
   level: "error"
-  schema: {"loadingURI":"file:/C:/Users/lisleny.silva/Documents/Trello/teste-api-trello/build/resources/test/schema/checklist-schema-id-required.json#","pointer":""}
+  schema: {"loadingURI":"file:.../teste-api-trello/build/resources/test/schema/checklist-schema-id-required.json#","pointer":""}
   instance: {"pointer":""}
   domain: "validation"
   keyword: "required"
